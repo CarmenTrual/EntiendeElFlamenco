@@ -5,7 +5,7 @@
 // Crear una instancia personalizada de axios que permite no repetir la URL base ni los headers
 // en todas las peticiones que se realicen a la API desde el frontend
 const clienteAxios = axios.create({
-  baseURL: "http://localhost",
+  baseURL: "http://127.0.0.1",
   headers: {
     "Content-Type": "application/json", // Envia datos en JSON
     "X-Requested-With": "XMLHttpRequest", // Indica que se trata de una solicitud AJAX

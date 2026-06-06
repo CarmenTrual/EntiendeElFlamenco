@@ -12,38 +12,36 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     const password = document.getElementById("password").value; 
 
     try {
-        // =================================
-        // ENVIAR DATOS A LA API DE LARAVEL
-        // =================================
-        const response = await fetch("http://127.0.0.1/api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json" // Envia JSON
-            },
-            body: JSON.stringify({ email, password }) // Convertir los datos a JSON
+        // ============================================
+        // ENVIAR DATOS A LA API DE LARAVEL CON AXIOS
+        // ============================================
+
+        // Usamos la instancia clienteAxios creada en clienteAxios.js
+        const { data } = await clienteAxios.post("/api/login", {
+            email,
+            password
         });
 
-        // Convertir la respuesta de Laravel a JSON
-        const data = await response.json();
+        // ==============================================
+        // GUARDAR TOKEN EN EL LOCALSTORAGE Y REDIRIGIR
+        // ==============================================
+        // Guarda el token que nos da laravel en el localStorage
+        localStorage.setItem("token", data.access_token);
 
-            // Si el login es correcto
-        if (response.ok) {
-            // Si el login está bien, guarda el token en localStorage para recordar la sesión.
-            localStorage.setItem("token", data.access_token);
+        // Redirige a la página principal
+        window.location.href = "index.html";
 
-            // Redirige a la página principal
-            window.location.href = "index.html";
+        } catch (error) {
+            // ==================
+            // MANEJO DE ERRORES
+            // ==================
+            console.error("Error en login:", error);
 
-
-            return; // Importante: Si el login es correcto, sale de la función para no seguir ejecutando el resto del código y evitar que se ejecute el alert
+            // Si Laravel devuelve un mensaje de error, lo muestra
+            if (error.response && error.response.data && error.response.data.message) {
+                alert(error.response.data.message);
+            } else {
+                alert("No se pudo conectar con el servidor");
+            }
         }
-
-        // Si el login falla mostrar un mensaje de error
-        alert(data.message || "Error al iniciar sesión");
-
-    } catch (error) {
-        console.error("Error:", error);
-        alert("No se pudo conectar con el servidor");
-    }
-});
-
+    });

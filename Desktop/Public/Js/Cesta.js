@@ -1,3 +1,17 @@
+// ============================
+// PROTECCIÓN DE RUTA PRIVADA
+// ============================
+
+// Recupera el token del usuario guardado en localStorage.
+const token = localStorage.getItem("AUTH_TOKEN");
+
+// Si NO existe token, el usuario no está logueado. LLeva a la página de login.
+if (!token) {
+    window.location.href = "login.html";
+}
+
+// Si el token existe, la página continúa cargando con normalidad.
+
 console.log("Cesta.js cargado");
 
 document.addEventListener("DOMContentLoaded", () => {

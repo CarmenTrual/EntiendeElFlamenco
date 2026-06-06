@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     // Recuperar token para saber si el usuario está logueado
     const token = localStorage.getItem("token");
 
@@ -39,18 +40,38 @@ document.addEventListener("DOMContentLoaded", () => {
     // ========================//
     //         LOGOUT          //
     // ========================//
-    // Al cerrar sesión se elimina el token y recarga la página
+    // Función reutilizable para cerrar sesión
+    const hacerLogout = async () => {
+
+        try {
+            // Llama al endpoint de logout de Laravel
+            // Invalida el token en el backend
+            await clienteAxios.post("/api/logout", null, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+        } catch (error) {
+            // Si falla, no pasa nada. Cierra la sesión en el navegador
+            console.error("Error al cerrar sesión en el servidor:", error);
+        }
+
+        // Elimina el token del navegador
+        localStorage.removeItem("token");
+
+        // Redirige al login
+        window.location.href = "login.html";
+    };
+
+    // Botón logout del menú principal
     if (btnLogout) {
-        btnLogout.addEventListener("click", () => { // Botón del menú principal
-            localStorage.removeItem("token");
-            window.location.reload();
-        });
+        btnLogout.addEventListener("click", hacerLogout);
     }
 
+    // Botón logout del menú hamburguesa
     if (hmLogout) {
-        hmLogout.addEventListener("click", () => { // Botón del menú hamburguesa
-            localStorage.removeItem("token");
-            window.location.reload();
-        });
+        hmLogout.addEventListener("click", hacerLogout);
     }
+
 });
