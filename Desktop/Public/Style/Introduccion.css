@@ -1,0 +1,392 @@
+/*
+---00 WHITESPACE SYSTEM / ATOM
+
+    - Spaging system (px)
+      2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+---01 TYPOGRAPHY SYSTEM / ATOM
+    
+
+    - Font sizes (px)
+    10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+*/
+
+
+/****************************************/
+/*        BOTONES DE LA PÁGINA          */
+/****************************************/
+.btn-page {
+  display: inline-block;
+  padding: 15px 30px; 
+  font-size: 1.4rem; 
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  transition: all 0.2s ease-in-out;
+  background-color: var(--negro);
+  color: var(--blanco);
+  margin-top: 30px;
+}
+
+/* Efecto hover */
+.btn-page:hover {
+  background-color: var(--hover-btn);
+}
+
+/****************************************/
+/*            SECCIÓN VACÍA             */
+/****************************************/
+/*.espacio-vacio {
+  height: 110px; 
+}
+  */
+
+/****************************************/
+/*              PORTADA                 */
+/****************************************/
+.portada {
+  width: 100%;
+  background-color: var(--negro);
+}
+
+.portada-container {
+  width: 70%;
+  height: 800px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+}
+
+.img-fondo {
+  width: 100%;
+  object-fit: cover;
+}
+
+
+/****************************************/
+/*             DESCRIPCIÓN              */
+/****************************************/
+.descripcion {
+  background-color: var(--negro);
+  width: 100%; 
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; 
+  font-size: 1.4em; 
+  color: var(--blanco); 
+  animation: fadeIn 3s; /* Animación para que el texto aparezca gradualmente */
+}
+
+/* Configuración de la animación */
+@keyframes fadeIn {
+  0% { opacity: 0; } /* empieza transparente */
+  100% { opacity: 1; } /* termina completamente opaco */
+}
+
+/****************************************/
+/*              HISTORIA                */
+/****************************************/
+.historia-title h2 {
+  font-size: 4em;
+  color: var(--negro); 
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: var(--blanco);
+}
+
+.historia-content{
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.historia-content p {
+  font-size: 1.2em;
+  color: var(--blanco); 
+  margin: 40px;
+  text-align: justify; 
+}
+
+.historia-container {
+  background-color: var(--negro);
+  display: flex;
+  flex-direction: column;/*¿necesario?*/
+  align-items: center;
+}
+
+/****************************************/
+/*            SEPARADOR                 */
+/****************************************/
+.separador {
+  width: 50%;
+  height: 0;
+  margin-top: 20px;
+  border-top: 80px solid var(--hover-btn);
+  border-left:  0 solid var(--hover-btn);
+  border-right: 50vw solid var(--negro);
+}
+
+
+/****************************************/
+/*        PALOS DEL FLAMENCO            */
+/****************************************/
+.palos-title {
+  background-color: var(--negro);
+  padding: 20px; 
+  text-align: center; 
+  width: 100%; 
+}
+
+.palos-title h3 {
+  font-size: 3em;
+  color: var(--blanco); 
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.palos-container {
+  background-color: var(--negro);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.palos-texto {
+  flex: 0.5; /* El texto ocupará el 50% del espacio */
+  padding: 20px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.palos-texto p {
+  color: var(--blanco);
+  font-size: 1.2em;
+  margin: 10px;
+}
+
+.palos-texto p:first-of-type {
+  margin-bottom: 50px; /* Espacio entre párrafos */
+}
+
+.palos-img-container {
+  flex: 1.5; /* La imagen ocupará el 150% del espacio */
+}
+
+.palos-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 50px;
+}
+
+/****************************************/
+/*             EL COMPÁS                */
+/****************************************/
+.compas {
+  background-color: var(--negro);
+  width: 100%; 
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; 
+  color: var(--blanco); 
+}
+
+.compas-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.compas-title h3 {
+  font-size: 3em;
+  color: var(--blanco); 
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.compas-content p {
+  font-size: 1.2em;
+  color: var(--blanco); 
+  margin: 20px;
+  margin-bottom: 60px;
+  text-align: justify; 
+}
+
+.compas-img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.compas-img img {
+  width: 60%; 
+  height: auto; 
+  margin: 10px; 
+}
+
+
+/****************************************/
+/*               EL RITMO               */
+/****************************************/
+.ritmo {
+  background-color: var(--negro);
+  width: 100%; 
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; 
+  font-size: 1.2em; 
+  color: var(--blanco); 
+}
+
+.ritmo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.ritmo-title h3 {
+  font-size: 3em;
+  color: var(--blanco); 
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.ritmo-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ritmo-content .columna-1 {
+  flex: 1;
+  margin: 40px;
+  padding: 60px;
+  background-color: var(--hover-btn);
+  color: var(--blanco); 
+  text-align: justify; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ritmo-content .columna-2 {
+  flex: 1;
+  margin: 40px;
+  padding: 60px;
+  background-color: #222222;
+  color: var(--blanco); 
+  text-align: justify; 
+}
+
+
+/****************************************/
+/*               LA LETRA               */
+/****************************************/
+.letras {
+  background-color: var(--negro);
+  width: 100%; 
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; 
+  color: var(--blanco); 
+}
+
+.letras-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.letras-title h3 {
+  font-size: 3em;
+  color: var(--blanco); 
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.letras-content p {
+  font-size: 1.2em;
+  color: var(--blanco); 
+  margin: 20px;
+  text-align: justify; 
+}
+
+.letras-img-texto {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 80px;
+}
+
+.letras-img-texto img {
+  width: 40%;
+  height: auto;
+  margin: 40px;
+  margin-left: 100px;
+}
+
+.letras-img-texto p {
+  margin-left: 60px;
+  margin-right: 80px;
+  font-size: 1.2em;
+}
+
+
+/****************************************/
+/*               EL BAILE               */
+/****************************************/
+.baile {
+  background-color: var(--negro);
+  width: 100%; 
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; 
+  color: var(--blanco); 
+}
+
+.baile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.baile-title h3 {
+  font-size: 3em;
+  color: var(--blanco); 
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.baile-content p {
+  font-size: 1.2em;
+  color: var(--blanco); 
+  margin: 20px;
+  text-align: justify; 
+}
+
+.baile-img {
+  background-color: var(--hover-btn);
+  width: 100%;
+  padding: 40px 0; 
+}
+
+.baile-img img {
+  display: block;
+  margin: auto; /* Centra la imagen dentro del contenedor */
+}
