@@ -590,3 +590,33 @@ transition: transform 0.3s ease-in-out; /* Transición suave en efecto hover*/
   font-weight: bold;
 }
 
+/**********************************/
+/*      TOAST DE BIENVENIDA       */
+/**********************************/
+
+.toast-bienvenida {
+    position: fixed;
+    top: 20px;
+    left: 30%;
+    transform: translateX(-50%) scale(0.8);
+    background-color: var(--negro);
+    color: var(--blanco);
+    padding: 20px 30px;
+    border-radius: 12px;
+    border: 2px solid var(--hover-btn);
+    font-size: 1.3rem;
+    font-weight: 700;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+    z-index: 3000;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.4);
+}
+.toast-bienvenida.mostrar {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+

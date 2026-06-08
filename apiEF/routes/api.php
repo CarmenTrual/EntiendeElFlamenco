@@ -59,4 +59,3 @@ Route::middleware('auth:sanctum')->group(function () {
     //Cerrar sesión
     Route::post('/logout', [AuthController::class, 'logout']); // Logout solo para usuarios autenticados  
 });
-

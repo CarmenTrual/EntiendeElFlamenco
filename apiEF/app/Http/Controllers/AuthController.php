@@ -21,8 +21,8 @@ class AuthController extends Controller
             ]);
             } catch (\Illuminate\Validation\ValidationException $e) {
                 return response()->json([
-                    'message' => 'El correo electrónico ya está registrado. Por favor, usa otro.',
-                    'errors' => ['email' => ['Este email ya está registrado.']],
+                    'message' => 'Datos inválidos',
+                    'errors' => $e->errors(),
                 ], 422);
             }
 

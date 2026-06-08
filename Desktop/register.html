@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,31 +10,40 @@
   <link rel="stylesheet" href="./Public/Style/Index.css">
 </head>
 <body>
-  <h1>Crear cuenta</h1>
-  
-  <!--========= FORMULARIO DE REGISTRO =========-->
-  <!-- Campos para crear un usuario -->
-  <form id="registerForm">
-    <label>Nombre</label>
-    <input type="text" id="name" required>
+  <div class="register-container">
 
-    <label>Email</label>
-    <input type="email" id="email" required>
+    <h1 class="register-title">Crear cuenta</h1>
 
-    <label>Contraseña</label>
-    <input type="password" id="password" required>
+    <form id="registerForm" class="register-form">
 
-    <label>Confirmar contraseña</label>
-    <input type="password" id="password_confirmation" required>
+      <label>Nombre</label>
+      <input type="text" id="nombre_usuario" required>
 
-    <button type="submit">Registrarse</button>
+      <label>Apellidos</label>
+      <input type="text" id="apellidos" required>
+
+      <label>Email</label>
+      <input type="email" id="email" required>
+
+      <label>Contraseña</label>
+      <input type="password" id="password" required>
+
+      <label>Confirmar contraseña</label>
+      <input type="password" id="password_confirmation" required>
+
+      <button type="submit" class="btn">Registrarse</button>
+
     </form>
 
-    <!-- Enlace para usuarios que ya tienen cuenta -->
-    <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+    <p class="register-login">
+      ¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí</a>
+    </p>
+  </div>
 
-    <!-- Archivo JS que manejará el registro -->
-    <script src="./public/js/register.js"></script>
+  <!--========= SCRIPTS =========-->
+  <script src="./Public/js/axios.min.js"></script>
+  <script src="./Public/js/clienteAxios.js"></script>
+  <script src="./Public/js/register.js"></script>
 
 </body>
 </html>

@@ -1,3 +1,10 @@
+// Toast de bienvenida
+const paginaActual = window.location.pathname;
+
+// ==================================//
+//   CONFIGURACIÓN INICIAL DEL DOM
+// ==================================//
+// Esperar a que el HTML cargue para poder acceder a los elementos del menú
 document.addEventListener("DOMContentLoaded", () => {
 
     // Recuperar token para saber si el usuario está logueado
@@ -17,25 +24,95 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==============================//
     //   MOSTRAR / OCULTAR BOTONES   //
     // ==============================//
-    if (token) {
-        // Usuario logueado: muestra perfil + logout y oculta login
-        if (btnLogin) btnLogin.style.display = "none";
-        if (btnCesta) btnCesta.style.display = "inline-block";
-        if (btnLogout) btnLogout.style.display = "inline-block";
-
-        if (hmLogin) hmLogin.style.display = "none";
-        if (hmCesta) hmCesta.style.display = "block";
-        if (hmLogout) hmLogout.style.display = "block";
-    } else {
-        // Usuario no logueado: muestra login y oculta perfil + logout
+    // Si no existe token - usuario no logueado
+    if (!token) {
+        
+        // Usuario NO logueado: mostrar solo el botón de iniciar sesión
         if (btnLogin) btnLogin.style.display = "inline-block";
         if (btnCesta) btnCesta.style.display = "none";
         if (btnLogout) btnLogout.style.display = "none";
 
+        // Menú hamburguesa en estado NO logueado
         if (hmLogin) hmLogin.style.display = "block";
         if (hmCesta) hmCesta.style.display = "none";
         if (hmLogout) hmLogout.style.display = "none";
+
+        return; // No seguimos. NO llamamos a /api/user
     }
+
+    // ==============================//
+    //   MOSTRAR ESTADO LOGUEADO YA  //
+    // ==============================//
+
+    // Mostrar botones correctos 
+    if (btnLogin) btnLogin.style.display = "none";
+    if (btnCesta) btnCesta.style.display = "inline-block";
+    if (btnLogout) btnLogout.style.display = "inline-block";
+
+    if (hmLogin) hmLogin.style.display = "none";
+    if (hmCesta) hmCesta.style.display = "block";
+    if (hmLogout) hmLogout.style.display = "block";
+
+
+    // ============================
+    //   OBTENER DATOS DEL USUARIO
+    // ============================
+    const obtenerUsuario = async () => {
+        try {
+            const respuesta = await clienteAxios.get("/api/user", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            const usuario = respuesta.data;
+
+            // Pasar el nombre del usuario al toast (si existe)
+            const nombreUsuarioSpan = document.getElementById("nombre-usuario");
+            if (nombreUsuarioSpan) nombreUsuarioSpan.textContent = usuario.nombre_usuario;
+
+            // Mostrar toast SOLO en index.html 
+            if (paginaActual.includes("index.html")) {
+                const toast = document.getElementById("toast-bienvenida");
+                const toastNombre = document.getElementById("toast-nombre");
+                
+                if (toast && toastNombre) {
+                    toastNombre.textContent = usuario.nombre_usuario;
+                    toast.style.display = "block";
+                    
+                    // activar animación
+                    setTimeout(() => {
+                        toast.classList.add("mostrar");
+                    }, 2);
+
+                    // ocultar a los 3 segundos
+                    setTimeout(() => {
+                        toast.classList.remove("mostrar");
+                        setTimeout(() => toast.style.display = "none", 500);
+                    }, 3000);
+                }
+            }
+
+            } catch (error) {
+            console.error("Error al obtener el usuario:", error);
+
+            // Si el token es inválido lo borra y vuelve a estado no logueado
+            localStorage.removeItem("token");
+
+            if (btnLogin) btnLogin.style.display = "inline-block";
+            if (btnCesta) btnCesta.style.display = "none";
+            if (btnLogout) btnLogout.style.display = "none";
+
+            if (hmLogin) hmLogin.style.display = "block";
+            if (hmCesta) hmCesta.style.display = "none";
+            if (hmLogout) hmLogout.style.display = "none";
+            
+            return; // NO sigue
+            }
+        };
+
+    // Ejecuta la función
+    obtenerUsuario();
 
     // ========================//
     //         LOGOUT          //
@@ -73,5 +150,4 @@ document.addEventListener("DOMContentLoaded", () => {
     if (hmLogout) {
         hmLogout.addEventListener("click", hacerLogout);
     }
-
 });

@@ -12,6 +12,11 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     const password = document.getElementById("password").value; 
 
     try {
+        // =============================================
+        // OBTENER COOKIE CSRF DE SANCTUM (OBLIGATORIO)
+        // =============================================
+        await clienteAxios.get("/sanctum/csrf-cookie");
+
         // ============================================
         // ENVIAR DATOS A LA API DE LARAVEL CON AXIOS
         // ============================================
