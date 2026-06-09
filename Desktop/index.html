@@ -60,6 +60,12 @@
   <body>
     <!-- CONTENIDO DE LA PÁGINA -->
 
+    <!-- Toast de bienvenida -->
+  <div id="toast-bienvenida" class="toast-bienvenida" style="display:none;">
+    ¡Hola, <span id="toast-nombre"></span>!
+  </div>
+
+
     <!-- Cabecera -->
     <header>
       <div class="menu">
@@ -399,11 +405,41 @@
     <script src="./Public/js/axios.min.js"></script>
     <script src="./Public/Js/clienteAxios.js"></script>
     <script src="./Public/Js/authMenu.js"></script>
+
+    <!-- Script para mostrar el mensaje de bienvenida -->
+    <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const showToast = localStorage.getItem("welcomeMessage");
+
+      if (showToast) {
+        try {
+          // Pedimos el usuario a la API
+          const { data } = await clienteAxios.get("/api/user");
+
+          const toast = document.getElementById("toast-bienvenida");
+          const toastNombre = document.getElementById("toast-nombre");
+
+          // Ponemos el nombre real del usuario
+          toastNombre.textContent = data.nombre_usuario;
+
+          toast.style.display = "block";
+
+          setTimeout(() => toast.classList.add("mostrar"), 10);
+
+          setTimeout(() => {
+            toast.classList.remove("mostrar");
+            setTimeout(() => toast.style.display = "none", 500);
+          }, 3000);
+
+        } catch (error) {
+            console.error("Error obteniendo usuario:", error);
+      }
+
+        // Borramos el indicador para que no vuelva a salir
+        localStorage.removeItem("welcomeMessage");
+    }
+});
+</script>
+
   </body>
-
-  <!-- Toast de bienvenida -->
-  <div id="toast-bienvenida" class="toast-bienvenida" style="display:none;">
-    ¡Hola, <span id="toast-nombre"></span>!
-  </div>
-
 </html>

@@ -27,11 +27,17 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
             password
         });
 
+        // Muestra los datos que nos devuelve la API 
+        console.log("DATA LOGIN:", data); // 
+
         // ==============================================
         // GUARDAR TOKEN EN EL LOCALSTORAGE Y REDIRIGIR
         // ==============================================
         // Guarda el token que nos da laravel en el localStorage
         localStorage.setItem("token", data.access_token);
+
+        // Guarda el mensaje de bienvenida 
+        localStorage.setItem("welcomeMessage", "1");
 
         // Redirige a la página principal
         window.location.href = "index.html";

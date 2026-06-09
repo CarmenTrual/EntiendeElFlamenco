@@ -7,29 +7,58 @@
 
 // Si NO existe token, el usuario no está logueado. LLeva a la página de login.
 //if (!token) {
-    //window.location.href = "login.html";
+//window.location.href = "login.html";
 //}
 
 // Si el token existe, la página continúa cargando con normalidad.
 
 console.log("Cesta.js cargado");
 
-document.addEventListener("DOMContentLoaded", () => {
+// Hacer async para poder usar await dentro 
+document.addEventListener("DOMContentLoaded", async () => {
+
+  // ==============================================
+  //    OBTENER EL USUARIO LOGUEADO DESDE LA API
+  // ==============================================
+  //Se necesita el ID del usuario para crear el carrito unico para cada usuario
+  let userId = null;
+
+  // Obtener el ID real del usuario logueado
+  try{
+    const { data } = await clienteAxios.get("/api/user");
+    userId = data.id; // ID real del usuario logueado
+  } catch (error) {
+    console.error("No se pudo obtener el usuario:", error);
+    return; // Si no hay usuario logueado, no carga el carrito
+    }
+
+    // Clave única del carrito para cada usuario
+    const carritoKey = `carrito-${userId}`;
+
+
+    // ========================================
+    //    REFERENCIAS A ELEMENTOS DEL DOM
+    // ========================================
+    // Cojo del HTML todo lo que necesito para que el carrito funcione (botones, modal, lista, total)
   const abrirCarritoBtns = document.querySelectorAll(".abrir-carrito");
   const modal = document.getElementById("carrito-modal");
   const cerrarBtn = document.querySelector(".close-btn");
   const carritoItemsContainer = document.getElementById("carrito-items");
   const totalElement = document.getElementById("total");
 
-  // Array para almacenar los cursos
-  let carrito = [];
 
-  // Cargar carrito desde localStorage al iniciar
-  const carritoGuardado = JSON.parse(localStorage.getItem("carrito")) || [];
-  carrito = carritoGuardado;
+  // ====================================================
+  //   CARGAR EL CARRITO DEL USUARIO DESDE LOCALSTORAGE
+  // ====================================================
+  // Cargar carrito_ID 
+  let carrito = JSON.parse(localStorage.getItem(carritoKey)) || [];
   actualizarCarrito();
 
-  // ABRIR MODAL (funciona para los dos botones)
+
+  // ===============================
+  //    ABRIR MODAL DEL CARRITO 
+  // ===============================
+  // funciona para los botones de los dos menus
   abrirCarritoBtns.forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -38,14 +67,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // ========================================
+  //    ACTUALIZAR EL CARRITO EN PANTALLA
+  // ========================================
   function actualizarCarrito() {
     carritoItemsContainer.innerHTML = "";
     let total = 0;
 
+    // Mostrar cursos en el carrito
     carrito.forEach((curso, index) => {
       total += curso.precio;
+      
+      // Crear el elemento del carrito
       const itemDiv = document.createElement("div");
       itemDiv.classList.add("carrito-item");
+
+      // Agregar el curso al carrito
       itemDiv.innerHTML = `
         <span>${curso.nombre} - ${curso.precio.toFixed(2)}€</span>
         <button data-index="${index}">Eliminar</button>
@@ -53,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
       carritoItemsContainer.appendChild(itemDiv);
     });
 
+    // Actualizar el total
     totalElement.textContent = total.toFixed(2) + "€";
 
     // Botones para eliminar cursos
@@ -60,15 +98,23 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.addEventListener("click", () => {
         const index = btn.dataset.index;
         carrito.splice(index, 1);
+        guardarCarrito();
         actualizarCarrito();
-
-        // Guardar carrito después de eliminar
-        localStorage.setItem("carrito", JSON.stringify(carrito));
       });
     });
   }
 
-  // Cerrar modal
+  // ===================================
+  //    GUARDAR CARRITO POR USUARIO
+  // ===================================
+  function guardarCarrito() {
+    localStorage.setItem(carritoKey, JSON.stringify(carrito));
+  }
+
+
+  // ===============================
+  // CERRAR MODAL DEL CARRITO
+  // ===============================
   if (cerrarBtn) {
     cerrarBtn.addEventListener("click", () => {
       modal.style.display = "none";
@@ -79,20 +125,27 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === modal) modal.style.display = "none";
   });
 
-  // Agregar cursos al carrito
-  document.addEventListener("click", (e) => {
-    if (e.target.matches(".curso-card button")) {
+
+  // ===============================
+  //    AÑADIR CURSOS AL CARRITO
+  // ===============================
+  document.addEventListener("click", (e) => {//
+    if (e.target.matches(".curso-card button")) {// botón de anadir al carrito
+
+      // Obtener información del curso
       const card = e.target.closest(".curso-card");
       const nombre = card.querySelector("h2").textContent;
+
       const precioTexto = Array.from(card.querySelectorAll("p")).pop().textContent;
+
+      // Convertir precio a float "Precio: 99,95€" - 99.95
       const precio = parseFloat(precioTexto.replace("Precio: ", "").replace("€", "").replace(",", "."));
 
       carrito.push({ nombre, precio });
-      actualizarCarrito();
+      guardarCarrito();// Guardar con la clave del usuario
+      actualizarCarrito(); 
 
-      // Guardar carrito después de agregar
-      localStorage.setItem("carrito", JSON.stringify(carrito));
-
+      // Mostrar el modal
       modal.style.display = "block"; // abrir modal automáticamente
     }
   });

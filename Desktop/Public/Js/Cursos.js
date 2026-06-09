@@ -29,11 +29,17 @@
 //});
 //
 
+
+// =======================================
+//     PINTAR LOS CURSOS EN PANTALLA
+// =======================================
+// Recibe un array de cursos y los mete en el HTML. Crea una card por cada curso
 function renderCourses(courses) {
   const container = document.getElementById('cursos-container');
   container.innerHTML = '';  // Limpia el contenedor antes de agregar nuevos elementos
 
   courses.forEach(course => {
+    // Plantilla de la card
     const courseCard = `
       <div class="curso-card">
         <img src="${course.imagen}" alt="${course.nombre_curso}">
@@ -43,15 +49,25 @@ function renderCourses(courses) {
         <button class="btn-page btn-add-carrito" data-nombre="${course.nombre_curso}" data-precio="${course.precio}">Agregar al carrito</button>
       </div>
     `;
+    // Agrega la card al contenedor
     container.insertAdjacentHTML('beforeend', courseCard);
   });
 }
 
+// ====================================================
+//   CAPTURAR CLICK EN EL BOTÓN "AGREGAR AL CARRITO"
+// ====================================================
+// Función para mandar los datos al backend
 document.addEventListener('click', async (e) => {
+
+  // Si se ha pulsado el botón de "Agregar al carrito"
   if (e.target.classList.contains('btn-add-carrito')) {
+
+    // Sacar los datos del curso desde el botón
     const nombre = e.target.dataset.nombre;
     const precio = e.target.dataset.precio;
 
+    // Enviar los datos al backend
     try {
       const respuesta = await fetch('/carrito/add', {
         method: 'POST',
@@ -68,11 +84,14 @@ document.addEventListener('click', async (e) => {
         })
       });
 
+      // Recibir la respuesta del backend
       const data = await respuesta.json();
       console.log('Carrito actualizado:', data);
 
     } catch (error) {
       console.error('Error al añadir al carrito:', error);
     }
+    // El carrito visual NO se actualiza aquí.
+    // Eso lo hace Cesta.js cuando detecta el click en el botón.
   }
 });

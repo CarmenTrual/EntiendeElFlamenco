@@ -71,27 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const nombreUsuarioSpan = document.getElementById("nombre-usuario");
             if (nombreUsuarioSpan) nombreUsuarioSpan.textContent = usuario.nombre_usuario;
 
-            // Mostrar toast SOLO en index.html 
-            if (paginaActual.includes("index.html")) {
-                const toast = document.getElementById("toast-bienvenida");
-                const toastNombre = document.getElementById("toast-nombre");
-                
-                if (toast && toastNombre) {
-                    toastNombre.textContent = usuario.nombre_usuario;
-                    toast.style.display = "block";
-                    
-                    // activar animación
-                    setTimeout(() => {
-                        toast.classList.add("mostrar");
-                    }, 2);
-
-                    // ocultar a los 3 segundos
-                    setTimeout(() => {
-                        toast.classList.remove("mostrar");
-                        setTimeout(() => toast.style.display = "none", 500);
-                    }, 3000);
-                }
-            }
 
             } catch (error) {
             console.error("Error al obtener el usuario:", error);
