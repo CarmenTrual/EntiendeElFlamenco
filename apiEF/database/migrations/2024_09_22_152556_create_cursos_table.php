@@ -19,6 +19,11 @@ return new class extends Migration
             $table->text('descripcion');
             $table->decimal('precio', 10,2);
             $table->timestamps();
+
+            /** Muestra las letras con tilde en la base de datos de la consola */
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
+
         });
     }
 

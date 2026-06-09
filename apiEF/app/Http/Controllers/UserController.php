@@ -32,7 +32,7 @@ class UserController extends Controller
             'nombre_usuario' => 'required|string|max:30',
             'apellidos' => 'required|string|max:30',
             'email' => 'required|string|email|max:30|unique:users',
-            'password' => 'required|string|min:15',
+            'password' => 'required|string|min:6',
         ]);
 
         $user = User::create([

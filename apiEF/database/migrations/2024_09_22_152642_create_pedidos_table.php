@@ -19,6 +19,10 @@ return new class extends Migration
             $table->string('estado', 20);
             $table->date('fecha');
             $table->timestamps();
+
+            /** Muestra las letras con tilde en la base de datos de la consola */
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
         });
     }
 
