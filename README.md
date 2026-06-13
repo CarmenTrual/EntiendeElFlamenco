@@ -1,4 +1,6 @@
 # EntiendeELFlamenco
 
-Anteproyecto - Notion
-https://placid-creek-c8a.notion.site/ENTIENDE-EL-FLAMENCO-e650f3bdc15e4d778c317e3214652a83
+Notion
+
+Documentación
+https://app.notion.com/p/ENTIENDE-EL-FLAMENCO-37a2520a777f8080802fefdfa5f70595
