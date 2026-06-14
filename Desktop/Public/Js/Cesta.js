@@ -16,6 +16,11 @@ console.log("Cesta.js cargado");
 
 // Hacer async para poder usar await dentro 
 document.addEventListener("DOMContentLoaded", async () => {
+  // ==============================================
+  //   RECUPERAR TOKEN DEL USUARIO LOGUEADO
+  // ==============================================
+  // Para enviar Authorization: Bearer TOKEN
+  const token = localStorage.getItem("token");
 
   // ==============================================
   //    OBTENER EL USUARIO LOGUEADO DESDE LA API
@@ -25,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Obtener el ID real del usuario logueado
   try{
-    const { data } = await clienteAxios.get("/api/user");
+    const { data } = await clienteAxios.get("/user"); // He quitado /api/user
     userId = data.id; // ID real del usuario logueado
   } catch (error) {
     console.error("No se pudo obtener el usuario:", error);

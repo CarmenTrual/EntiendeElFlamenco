@@ -67,26 +67,18 @@ document.addEventListener('click', async (e) => {
     const nombre = e.target.dataset.nombre;
     const precio = e.target.dataset.precio;
 
-    // Enviar los datos al backend
+    // ================================
+    //   ENVIAR LOS DATOS AL BACKEND
+    // ================================
     try {
-      const respuesta = await fetch('/carrito/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-TOKEN': document
-            .querySelector('meta[name="csrf-token"]')
-            ?.getAttribute('content') || ''
-        },
-        body: JSON.stringify({
-          nombre: nombre,
-          precio: precio
-        })
+      // Enviar los datos al backend con axios
+      const respuesta = await clienteAxios.post('/carrito/add', {
+        nombre: nombre,
+        precio: precio
       });
 
       // Recibir la respuesta del backend
-      const data = await respuesta.json();
-      console.log('Carrito actualizado:', data);
+      console.log('Carrito actualizado:', respuesta.data);
 
     } catch (error) {
       console.error('Error al añadir al carrito:', error);

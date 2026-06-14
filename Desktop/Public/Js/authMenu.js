@@ -59,7 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // ============================
     const obtenerUsuario = async () => {
         try {
-            const respuesta = await clienteAxios.get("/api/user", {
+            // Llama al endpoint de Laravel
+            // Devuelve el usuario logueado
+            const respuesta = await clienteAxios.get("/user", { // He quitado /api/user
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -102,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             // Llama al endpoint de logout de Laravel
             // Invalida el token en el backend
-            await clienteAxios.post("/api/logout", null, {
+            await clienteAxios.post("/logout", null, { // he quitado /api/logout
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

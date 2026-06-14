@@ -396,15 +396,19 @@
       </div>
     </footer>
 
-    <script src="./Public/Js/MenuHamburguesa.js"></script>
-    <script src="./Public/Js/Juego.js"></script>
-    <script src="./Public/Js/CarruselNoticias.js"></script>
+    <!-- Axios primero -->
+    <script src="./Public/Js/axios.min.js"></script>
+    <script src="./Public/Js/clienteAxios.js"></script>
+
+    <!-- Scripts que dependen de axios -->
+    <script src="./Public/Js/authMenu.js"></script>
     <script src="./Public/Js/Cesta.js"></script>
 
-    <!-- Scripts para autenticación -->
-    <script src="./Public/js/axios.min.js"></script>
-    <script src="./Public/Js/clienteAxios.js"></script>
-    <script src="./Public/Js/authMenu.js"></script>
+    <!-- Scripts independientes -->
+    <script src="./Public/Js/Juego.js"></script>
+    <script src="./Public/Js/CarruselNoticias.js"></script>
+    <script src="./Public/Js/MenuHamburguesa.js"></script>
+    
 
     <!-- Script para mostrar el mensaje de bienvenida -->
     <script>
@@ -414,7 +418,7 @@
       if (showToast) {
         try {
           // Pedimos el usuario a la API
-          const { data } = await clienteAxios.get("/api/user");
+          const { data } = await clienteAxios.get("/user"); // He quitado /api/user
 
           const toast = document.getElementById("toast-bienvenida");
           const toastNombre = document.getElementById("toast-nombre");

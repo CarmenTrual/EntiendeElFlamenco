@@ -23,15 +23,18 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     })
 
     try { 
-        // obtener cookie CSRF de sanctum
-        await clienteAxios.get("/sanctum/csrf-cookie");
+        // obtener cookie CSRF de sanctum (NO usar clienteAxios)
+        await axios.get("http://127.0.0.1/sanctum/csrf-cookie", {
+        withCredentials: true
+        });
         
         // Envia los datos al backend para crear el usuario
-        const response = await clienteAxios.post("/api/register", { 
+        const response = await clienteAxios.post("/register", { // he quitado /api/register
             nombre_usuario,
             apellidos,
             email,
             password,
+            password_confirmation
         });
 
         // Si la respuesta del backend es 201 o 200 (ok)

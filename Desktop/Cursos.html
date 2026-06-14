@@ -255,13 +255,18 @@
     </div>
   </footer>
 
-  <script src="./Public/Js/MenuHamburguesa.js"></script>
-  <script src="./Public/Js/Cursos.js"></script>
-  <script src="./Public/Js/Cesta.js"></script>
-  <!-- Scripts para autenticación -->
-  <script src="./Public/js/axios.min.js"></script>
+  
+  <!-- Axios primero -->
+  <script src="./Public/Js/axios.min.js"></script>
   <script src="./Public/Js/clienteAxios.js"></script>
+
+  <!-- Scripts que dependen de axios -->
   <script src="./Public/Js/authMenu.js"></script>
+  <script src="./Public/Js/Cesta.js"></script>
+  <script src="./Public/Js/Cursos.js"></script>
+  
+  <!-- Script independiente - menú hamburguesa -->
+  <script src="./Public/Js/MenuHamburguesa.js"></script>
   
 </body>
 </html>

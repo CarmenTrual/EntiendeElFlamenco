@@ -12,17 +12,22 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     const password = document.getElementById("password").value; 
 
     try {
-        // =============================================
-        // OBTENER COOKIE CSRF DE SANCTUM (OBLIGATORIO)
-        // =============================================
-        await clienteAxios.get("/sanctum/csrf-cookie");
+        // ===============================================
+        // OBTENER COOKIE CSRF DE SANCTUM (DESACTIVADO)
+        // ===============================================
+        // Motivo: estamos usando autenticación por token Bearer,
+        // no autenticación basada en cookies. Esta llamada provoca
+        // un 404 porque Sanctum no está configurado para SPA.
+        //
+        //await csrfAxios.get("/sanctum/csrf-cookie");
 
+        
         // ============================================
         // ENVIAR DATOS A LA API DE LARAVEL CON AXIOS
         // ============================================
 
         // Usamos la instancia clienteAxios creada en clienteAxios.js
-        const { data } = await clienteAxios.post("/api/login", {
+        const { data } = await clienteAxios.post("/login", {
             email,
             password
         });
